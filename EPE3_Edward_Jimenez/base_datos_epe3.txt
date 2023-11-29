@@ -1,0 +1,74 @@
+Create database Hospital;
+use hospital;
+
+Create table Medico
+(
+idMedico int primary key auto_increment,
+NombreMed varchar(50),
+ApellidoMed varchar(50),
+RunMed varchar(50),
+EunaCom varchar(5),
+NacionalidadMed varchar(45),
+Especialidad varchar(45),
+Horarios time,
+TarifaHr Int
+);
+
+INSERT INTO Medico (NombreMed, ApellidoMed, RunMed, EunaCom, NacionalidadMed, Especialidad, Horarios, TarifaHr) 
+VALUES ('Nicol', 'Avalos', '12345678-9', 'Sí', 'Chilena', 'Cardiología', '08:00:00', 130000);
+
+INSERT INTO Medico (NombreMed, ApellidoMed, RunMed, EunaCom, NacionalidadMed, Especialidad, Horarios, TarifaHr) 
+VALUES ('Lorena', 'Castillo', '124738345-1', 'No', 'Mexicana', 'Pediatría', '09:30:00', 120500);
+
+INSERT INTO Medico (NombreMed, ApellidoMed, RunMed, EunaCom, NacionalidadMed, Especialidad, Horarios, TarifaHr) 
+VALUES ('Cesár', 'Jiménez', '11423447-5', 'Sí', 'Colombiana', 'Dermatología', '11:00:00', 100000);
+
+
+
+Create Table Paciente
+(
+    idPaciente int primary key auto_increment,
+    NombrePac varchar(50),
+    ApellidoPac varchar(50),
+    RutPac Varchar(25),
+    Nacionalidad varchar(25),
+    Visa varchar(5),
+    Genero Varchar(10),
+    SintomasPac varchar(100),
+    idMedico int,
+    Constraint FK_Medico FOREIGN KEY (idMedico) REFERENCES Medico(idMedico)
+);
+
+INSERT INTO Paciente (NombrePac, ApellidoPac, RutPac, Nacionalidad, Visa, Genero, SintomasPac, idMedico) 
+VALUES ('Ana', 'Rodríguez', '19283746-5', 'Argentina', 'Sí', 'Femenino', 'sangrado de boca leves', 1);
+
+INSERT INTO Paciente (NombrePac, ApellidoPac, RutPac, Nacionalidad, Visa, Genero, SintomasPac, idMedico) 
+VALUES ('David', 'Castro', '148348967-1', 'Chilena', 'No', 'Masculino', 'Vomitos y nauses', 2);
+
+INSERT INTO Paciente (NombrePac, ApellidoPac, RutPac, Nacionalidad, Visa, Genero, SintomasPac, idMedico) 
+VALUES ('Laura', 'Cruz', '162849580-3', 'Mexicana', 'Sí', 'Femenino', 'Quemaduras', 3);
+
+
+
+Drop table Medico;
+SET SQL_SAFE_UPDATES = 0;
+
+
+CREATE TABLE RESERVA
+(
+id_Reserva int primary key auto_increment,
+Especialidad varchar(45),
+DiaReserva date,
+idPaciente int,
+constraint FK_idPaciente foreign key (idPaciente) references Paciente(idPaciente)
+);
+
+INSERT INTO RESERVA (Especialidad, DiaReserva, idPaciente) 
+VALUES ('Cardiología', '2023-12-01', 1);
+
+INSERT INTO RESERVA (Especialidad, DiaReserva, idPaciente) 
+VALUES ('Gastroenterología', '2023-12-02', 2);
+
+INSERT INTO RESERVA (Especialidad, DiaReserva, idPaciente) 
+VALUES ('Dermatología', '2023-12-03', 3);
+
